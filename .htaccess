@@ -1,0 +1,7 @@
+AuthType Basic
+AuthName "My Protected Area"
+AuthUserFile /var/www/vhosts/prixjeunesse.de/httpdocs/submissions/.htpasswd
+Require valid-user
+
+RewriteEngine On
+RewriteRule ^([^/]*)/([^/]*)/([^/]*)\.xml$ entries_sorted.php?id=$1&status=$2&category=$3 [L]
