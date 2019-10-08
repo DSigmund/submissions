@@ -39,14 +39,7 @@ require_once('config.php');
               <td><a href="entering_organisations.php?id=<?php echo CAT_SHORTS;?>&type=html" target="_blank">Entering Organisations</a></td>
               <td></td>
             </tr>
-            <tr>
-              <th><?php echo CAT_INTERACTIVITY;?></th>
-              <td>Interactivity Entry Form</td>
-              <td><a href="submissions.php?id=<?php echo CAT_INTERACTIVITY;?>" target="_blank">Submissions</a></td>
-              <td></td>
-              <td><a href="entering_organisations.php?id=<?php echo CAT_INTERACTIVITY;?>&type=html" target="_blank">Entering Organisations</a></td>
-              <td></td>
-            </tr>
+          
             <tr>
               <th><?php echo CAT_PERSONAL;?></th>
               <td>Personal Registration Form</td>

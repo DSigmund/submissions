@@ -27,9 +27,9 @@ if ($result->num_rows > 0) {
 }
 $enterer = "";
 if($fields["EnteredBy"] == "Producing Organisation") {
-  $enterer = $fields["CompanyProducing"] . $fields["CompanyProducing copy"];
+  $enterer = $fields["company-producing"];
 } else {
-  $enterer = $fields["NameTelecaster"];
+  $enterer = $fields["name-telecaster"];
 }
 
 ?>
@@ -40,7 +40,7 @@ if($fields["EnteredBy"] == "Producing Organisation") {
     <meta charset="UTF-8">
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <title><?php echo $id;?>_<?php echo $fields["TitleInEnglish"]; ?>_<?php echo $enterer; ?></title>
+    <title><?php echo $id;?>_<?php echo $fields["title-in-english"]; ?>_<?php echo $enterer; ?></title>
     <style>
       th {width:200px;}
     </style>
@@ -49,7 +49,7 @@ if($fields["EnteredBy"] == "Producing Organisation") {
     <div class="container">
       <div class="row">
         <div class="col-8">
-          <h2><?php echo $id;?>_<?php echo $fields["TitleInEnglish"]; ?>_<?php echo $enterer; ?></h2>
+          <h2><?php echo $id;?>_<?php echo $fields["title-in-english"]; ?>_<?php echo $enterer; ?></h2>
         </div>
         <div class="col-4">
           <p class="alert alert-info text-right"><?php echo $title; ?></p>
@@ -60,37 +60,37 @@ if($fields["EnteredBy"] == "Producing Organisation") {
           <?php if($formid == CAT_MAIN_TV): ?>
             <tr>
               <th>Category</th>
-              <td><?php echo $fields["Category"]; ?></td>
+              <td><?php echo $fields["category"]; ?></td>
             </tr>
           <?php endif; ?>
           <tr>
             <th>Age of Audience</th>
-            <td><?php echo $fields["AgeOfAudience"]; ?></td>
+            <td><?php echo $fields["age-of-audience"]; ?></td>
           </tr>
           <tr>
             <th>Title In English</th>
-            <td><?php echo $fields["TitleInEnglish"]; ?></td>
+            <td><?php echo $fields["title-in-english"]; ?></td>
           </tr>
           <tr>
             <th>Original Title</th>
-            <td><?php echo $fields["OriginalTitle"]; ?></td>
+            <td><?php echo $fields["original-title"]; ?></td>
           </tr>
           <tr>
             <th>Producer</th>
-            <td><?php echo $fields["Producer"]; ?></td>
+            <td><?php echo $fields["producer"]; ?></td>
           </tr>
           <tr>
             <th>Director</th>
-            <td><?php echo $fields["Director"]; ?></td>
+            <td><?php echo $fields["director"]; ?></td>
           </tr>
           <tr>
             <th>Duration in Minutes </th>
-            <td><?php echo $fields["DurationInMinutes"]; ?></td>
+            <td><?php echo $fields["duration-in-minutes"]; ?></td>
           </tr>
           <?php if($formid == CAT_MAIN_TV): ?>
             <tr>
               <th>Datetime First Telecast</th>
-              <td><?php echo $fields["DateOfFirstTelecast"] . " " . $fields["TimeOfFirstTelecast"]; ?></td>
+              <td><?php echo $fields["date-of-first-telecast"] . " " . $fields["time-of-first-telecast"]; ?></td>
             </tr>
             <tr>
               <th>Episode</th>
@@ -100,7 +100,7 @@ if($fields["EnteredBy"] == "Producing Organisation") {
           <?php if($formid == CAT_SHORTS): ?>
             <tr>
               <th>Date of First Telecast</th>
-              <td><?php echo $fields["DateOfFirstTelecast2"]; ?></td>
+              <td><?php echo $fields["date-of-first-telecast"]; ?></td>
             </tr>
             <tr>
               <th>Episode</th>
@@ -109,15 +109,15 @@ if($fields["EnteredBy"] == "Producing Organisation") {
           <?php endif; ?>
           <tr>
             <th>Entered By</th>
-            <td><?php echo $fields["EnteredBy"]; ?></td>
+            <td><?php echo $fields["entered-by"]; ?></td>
           </tr>
           <tr>
             <th>Name Telecaster</th>
-            <td><?php echo $fields["NameTelecaster"]; ?></td>
+            <td><?php echo $fields["name-telecaster"]; ?></td>
           </tr>
           <tr>
             <th>Country Telecaster</th>
-            <td><?php echo $fields["Country_Telecaster"]; ?></td>
+            <td><?php echo $fields["country_telecaster"]; ?></td>
           </tr>
           <tr>
             <th>Contact Telecaster</th>

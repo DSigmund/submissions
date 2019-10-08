@@ -16,7 +16,7 @@ $sql = "SELECT e.data_id AS SubmissionId, v.created AS DateSubmitted, e.value AS
         FROM Td6PNmU6_cf7_vdata v, Td6PNmU6_cf7_vdata_entry e 
         WHERE e.cf7_id=".$id." 
         AND e.data_id = v.id 
-        AND (e.name = 'TitleInEnglish' OR e.name = 'EntryTitle' OR e.name = 'your-name')";
+        AND (e.name = 'title-in-english' OR e.name = 'entry-title' OR e.name = 'family-name')";
 
 $result = $mysql->query($sql);
 ?>

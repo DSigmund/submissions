@@ -1,6 +1,6 @@
 AuthType Basic
 AuthName "My Protected Area"
-AuthUserFile /var/www/vhosts/prixjeunesse.de/httpdocs/submissions/.htpasswd
+AuthUserFile /var/www/vhosts/submissions.prixjeunesse.de/httpdocs/.htpasswd
 Require valid-user
 
 RewriteEngine On
