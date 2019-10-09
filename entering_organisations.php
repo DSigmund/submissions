@@ -191,8 +191,7 @@ foreach ($entries as $entry => $value) {
         <tr>
           <th data-defaultsort="desc">Name</th>
           <th>Country</th>
-          <th>Programme</th>
-          <th>Count</th>
+          <th>Programmes</th>
           <th>Minutes</th>
         </tr>
         <tbody>
@@ -207,6 +206,7 @@ foreach ($entries as $entry => $value) {
         </tbody>
         <tfoot>
           <tr>
+          <th></th>
             <th style="text-align:right;">SUM</th>
             <th><?php echo $sum_count;?></th>
             <th><?php echo $sum_minutes;?></th>
