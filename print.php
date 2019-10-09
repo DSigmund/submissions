@@ -94,7 +94,7 @@ if($fields["EnteredBy"] == "Producing Organisation") {
             </tr>
             <tr>
               <th>Episode</th>
-              <td><b><?php echo $fields["EpisodeNo"] . "</b>/" . $fields["SeriesEpisodes"] . " (" . $fields["HowOften"] . ")"; ?></td>
+              <td><b><?php echo $fields["episode-no"] . "</b>/" . $fields["episode-series"] . " (" . $fields["how-often"] . ")"; ?></td>
             </tr>
           <?php endif; ?>
           <?php if($formid == CAT_SHORTS): ?>
@@ -104,7 +104,7 @@ if($fields["EnteredBy"] == "Producing Organisation") {
             </tr>
             <tr>
               <th>Episode</th>
-              <td><b><?php echo $fields["EpisodeNo"] . "</b>/" . $fields["SeriesEpisodes"] . " (" . $fields["HowOften"] . ")"; ?></td>
+              <td><b><?php echo $fields["episode-no"] . "</b>/" . $fields["episode-series"] . " (" . $fields["how-often"] . ")"; ?></td>
             </tr>
           <?php endif; ?>
           <tr>
@@ -117,40 +117,40 @@ if($fields["EnteredBy"] == "Producing Organisation") {
           </tr>
           <tr>
             <th>Country Telecaster</th>
-            <td><?php echo $fields["country_telecaster"]; ?></td>
+            <td><?php echo $fields["country-telecaster"]; ?></td>
           </tr>
           <tr>
             <th>Contact Telecaster</th>
-            <td><?php echo $fields["FirstNameTelecaster"]; ?> <?php echo $fields["LastNameTelecaster"]; ?></td>
+            <td><?php echo $fields["contact-telecaster-first-name"]; ?> <?php echo $fields["contact-telecaster-last-name"]; ?></td>
           </tr>
           <tr>
             <th>Email Telecaster</th>
-            <td><?php echo $fields["email_Telecaster"]; ?></td>
+            <td><?php echo $fields["contact-telecaster-email"]; ?></td>
           </tr>
           <tr>
             <th>Company Producing</th>
-            <td><?php echo $fields["CompanyProducing"] . $fields["CompanyProducing copy"]; ?></td>
+            <td><?php echo $fields["name-producing-company"]; ?></td>
           </tr>
           <tr>
             <th>Country Producing </th>
-            <td><?php echo $fields["CountryProducing"] . $fields["CountryProducing copy"]; ?></td>
+            <td><?php echo $fields["country-producing-company"]; ?></td>
           </tr>
           <tr>
             <th>Contact Producing</th>
-            <td><?php echo $fields["FirstNameProducing"] . $fields["FirstNameProducing copy"]; ?> <?php echo $fields["LastNameProducing"] . $fields["LastNameProducing copy"]; ?></td>
+            <td><?php echo $fields["contact-first-name"]; ?> <?php echo $fields["contact-last-name"]; ?></td>
           </tr>
           <tr>
             <th>Email Producing </th>
-            <td><?php echo $fields["emailProducing"] . $fields["emailProducing copy"]; ?></td>
+            <td><?php echo $fields["contact-email"]; ?></td>
           </tr>
           <tr>
             <th>Brief Summary</th>
-            <td><?php echo $fields["BriefSummary"]; ?></td>
+            <td><?php echo $fields["summary"]; ?></td>
           </tr>
           <?php if($formid == CAT_MAIN_TV): ?>
             <tr>
               <th>Info About Programme </th>
-              <td><?php echo $fields["InfoAboutProgramme"]; ?></td>
+              <td><?php echo $fields["info"]; ?></td>
             </tr>
           <?php endif; ?>
         <?php else: ?>

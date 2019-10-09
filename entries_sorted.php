@@ -53,7 +53,7 @@ foreach ($entries as $entry => $value) {
   // TODO: preselection. loop and skip if cat is wrong "Category"
   $skip = false;
   foreach ($value as $key => $v) {
-    if($cat != "all" && $key == "Category" && $v != str_replace("_", " ", $cat)) {
+    if($cat != "all" && $key == "category" && $v != str_replace("_", " ", $cat)) {
       $skip = true;
     }
     if($status != "all" && $key == "status" && $v[0] != $status) {
@@ -73,45 +73,47 @@ foreach ($entries as $entry => $value) {
 
   $output .= "<mediabar>".$value["DVD"]."</mediabar>";
   
-  $output .= "<entering_name>";
-  $output .= ($value["EnteredBy"] == "Telecaster") ? $value["NameTelecaster"] : $value["CompanyProducing"] . $value["CompanyProducing copy"];
-  $output .= "</entering_name>";
+  $output .= "<entering-name>";
+  $output .= ($value["entered-by"]== "Telecaster / Digital Distributor") ? $value["name-telecaster"] : $value["name-producing-company"];
+  $output .= "</entering-name>";
 
-  $output .= "<entering_street>";
-  $output .= ($value["EnteredBy"] == "Telecaster") ? $value["Street_Telecaster"] : $value["StreetProducing"];
-  $output .= "</entering_street>";
+  $output .= "<entering-street>";
+  $output .= ($value["entered-by"]== "Telecaster / Digital Distributor") ? $value["street-telecaster"] : $value["street-producing-company"];
+  $output .= "</entering-street>";
 
-  $output .= "<entering_city>";
-  $output .= ($value["EnteredBy"] == "Telecaster") ? $value["City_Telecaster"] : $value["CityProducing"] . $value["CityProducing copy"];
-  $output .= "</entering_city>";
+  $output .= "<entering-city>";
+  $output .= ($value["entered-by"]== "Telecaster / Digital Distributor") ? $value["city-telecaster"] : $value["city-producing-company"];
+  $output .= "</entering-city>";
 
-  $output .= "<entering_country>";
-  $output .= ($value["EnteredBy"] == "Telecaster") ? $value["Country_Telecaster"] : $value["CountryProducing"] . $value["CountryProducing copy"];
-  $output .= "</entering_country>";
+  $output .= "<entering-zipcode>";
+  $output .= ($value["entered-by"]== "Telecaster / Digital Distributor") ? $value["zip-telecaster"] : $value["zip-producing-company"];
+  $output .= "</entering-zipcode>";
 
-  $output .= "<entering_contact>";
-  $output .= ($value["EnteredBy"] == "Telecaster") ? $value["FirstNameTelecaster"] ." ". $value["LastNameTelecaster"] : $value["FirstNameProducing"] . $value["FirstNameProducing copy"] . " " . $value["LastNameProducing"] . $value["LastNameProducing copy"];
-  $output .= "</entering_contact>";
+  $output .= "<entering-country>";
+  $output .= ($value["entered-by"]== "Telecaster / Digital Distributor") ? $value["country-telecaster"] : $value["country-producing-company"];
+  $output .= "</entering-country>";
 
-  $output .= "<entering_contactFirstName>";
-  $output .= ($value["EnteredBy"] == "Telecaster") ? $value["FirstNameTelecaster"] : $value["FirstNameProducing"] . $value["FirstNameProducing copy"];
-  $output .= "</entering_contactFirstName>";
+  $output .= "<entering-contact>";
+  $output .= ($value["entered-by"]== "Telecaster / Digital Distributor") ? $value["contact-telecaster-first-name"] ." ". $value["contact-telecaster-last-name"] : $value["contact-first-name"] . " " . $value["contact-last-name"];
+  $output .= "</entering-contact>";
 
-  $output .= "<entering_contactLastName>";
-  $output .= ($value["EnteredBy"] == "Telecaster") ? $value["LastNameTelecaster"] : $value["LastNameProducing"] . $value["LastNameProducing copy"];
-  $output .= "</entering_contactLastName>";
+  $output .= "<entering-contactFirstName>";
+  $output .= ($value["entered-by"]== "Telecaster / Digital Distributor") ? $value["contact-telecaster-last-name"] : $value["contact-first-name"] ;
+  $output .= "</entering-contactFirstName>";
 
-  $output .= "<entering_email>";
-  $output .= ($value["EnteredBy"] == "Telecaster") ? $value["email_Telecaster"] : $value["emailProducing"] . $value["emailProducing copy"];
-  $output .= "</entering_email>";
+  $output .= "<entering-contactLastName>";
+  $output .= ($value["entered-by"]== "Telecaster / Digital Distributor") ? $value["contact-telecaster-last-name"] : $value["contact-last-name"];
+  $output .= "</entering-contactLastName>";
 
-  $output .= "<entering_phone>";
-  $output .= ($value["EnteredBy"] == "Telecaster") ? $value["Phone_Telecaster"] : $value["PhoneProducing"] . $value["PhoneProducing copy"];
-  $output .= "</entering_phone>";
+  $output .= "<entering-email>";
+  $output .= ($value["entered-by"]== "Telecaster / Digital Distributor") ? $value["contact-telecaster-email"] : $value["contact-email"];
+  $output .= "</entering-email>";
 
-  $output .= "<entering_zipcode>";
-  $output .= ($value["EnteredBy"] == "Telecaster") ? $value["ZipCode_Telecaster"] : $value["ZipCodeProducing"] . $value["ZipCodeProducing copy"];
-  $output .= "</entering_zipcode>";
+  $output .= "<entering-phone>";
+  $output .= ($value["entered-by"]== "Telecaster / Digital Distributor") ? $value["contact-telecaster-phone"] : $value["contact-phone"];
+  $output .= "</entering-phone>";
+
+  
 
   $output .= "</entry>";
 }

@@ -16,9 +16,9 @@ if ($mysql->connect_error) {
   die("Connection failed: " . $mysql->connect_error);
 } 
 
-$result0 = $mysql->query("SELECT FormName FROM `nilev_rsform_forms` WHERE FormId=".$id);
+$result0 = $mysql->query('SELECT post_title FROM Td6PNmU6_posts WHERE post_type="wpcf7_contact_form" AND id='.$id);
 $row0 = $result0->fetch_assoc();
-$title = $id." - ".$row0["FormName"];
+$title = $id." - ".$row0["post_title"];
 
 $sql = "SELECT data_id, name, value FROM Td6PNmU6_cf7_vdata_entry WHERE cf7_id=".$id." AND name NOT LIKE \"\\_%\" ORDER BY data_id ASC, name ASC";
 
@@ -42,18 +42,18 @@ $sum_minutes = 0;
 // 2. Create new array with values
 foreach ($entries as $entry => $value) {
   $name = "";
-  if($value["EnteredBy"] == "Producing Organisation") {
-    $name = $value["CompanyProducing copy"] . $value["CompanyProducing"];
+  if($value["entered-by"] == "Producing Organisation") {
+    $name = $value["name-producing-company"];
   } else {
-    $name = $value["NameTelecaster"];
+    $name = $value["name-telecaster"];
   }
   $organisations[$name]["name"] = $name;
 
   $country = "";
-  if($value["EnteredBy"] == "Producing Organisation") {
-    $country = $value["CountryProducing copy"] . $value["CountryProducing"];
+  if($value["entered-by"] == "Producing Organisation") {
+    $country = $value["country-producing-company"];
   } else {
-    $country = $value["Country_Telecaster"];
+    $country = $value["country-telecaster"];
   }
   $organisations[$name]["country"] = $country;
 
@@ -64,12 +64,12 @@ foreach ($entries as $entry => $value) {
   }
   $sum_count++;
   if($organisations[$name]["minutes"]) {  
-    $organisations[$name]["minutes"] += $value["DurationInMinutes"];
+    $organisations[$name]["minutes"] += $value["duration-in-minutes"];
   } else {
-    $organisations[$name]["minutes"] = $value["DurationInMinutes"];  
+    $organisations[$name]["minutes"] = $value["duration-in-minutes"];  
   }
   $organisations[$name]["entries"][] = $value;
-  $sum_minutes += $value["DurationInMinutes"];
+  $sum_minutes += $value["duration-in-minutes"];
 }
 
 ?>
@@ -138,9 +138,9 @@ foreach ($entries as $entry => $value) {
             <tr>
               <td></td>
               <td><?php echo $v["data_id"];?></td>
-              <td><?php echo $v["TitleInEnglish"];?></td>
+              <td><?php echo $v["title-in-english"];?></td>
               <td></td>
-              <td><?php echo $v["DurationInMinutes"];?></td>
+              <td><?php echo $v["duration-in-minutes"];?></td>
             </tr>
           <?php endforeach; ?>
           <tr>
@@ -167,8 +167,8 @@ foreach ($entries as $entry => $value) {
           <?php foreach ($value["entries"] as $key => $v):?>
             <tr>
               <td><?php echo $v["data_id"];?></td>
-              <td><?php echo $v["TitleInEnglish"];?></td>
-              <td><?php echo $v["DurationInMinutes"];?></td>
+              <td><?php echo $v["title-in-english"];?></td>
+              <td><?php echo $v["duration-in-minutes"];?></td>
             </tr>
           <?php endforeach; ?>
         </tbody>
