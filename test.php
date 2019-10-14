@@ -3,6 +3,7 @@ $id = $_GET["id"];
 // Create CSV for Form by ID
 
 // 0. require config and connect to database
+require_once('functions.php');
 require_once('config.php');
 $mysql = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 $mysql->query("SET NAMES utf8"); 
@@ -43,7 +44,7 @@ foreach ($entries as $entry => $value) {
   foreach ($value as $key => $v) {
     if ($key == 'title-in-english') {
     $output .= "<li>";
-    $output .= htmlspecialchars($v);
+    $output .= unescape($v);
     $output .= "</li>";
     }
   }
