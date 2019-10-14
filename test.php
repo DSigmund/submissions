@@ -41,13 +41,14 @@ $output .= "\n";
 // 3. create lines with values
 foreach ($entries as $entry => $value) {
   foreach ($value as $key => $v) {
-    if ($key == 'title-in-english')
+    if ($key == 'title-in-english') {
     $output .= "<li>";
     $output .= $v;
     $output .= "</li>";
+    }
   }
-  $output .= "</entry>";
 }
+$output .= "</ul>";
 // 4. echo values
 echo $output;
 
