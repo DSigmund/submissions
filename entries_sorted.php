@@ -20,6 +20,7 @@ header("Expires: 0");
 
 // 0. require config and connect to database
 require_once('config.php');
+require_once('functions.php');
 $mysql = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 $mysql->query("SET NAMES utf8"); 
 if ($mysql->connect_error) {
@@ -67,7 +68,7 @@ foreach ($entries as $entry => $value) {
   foreach ($value as $key => $v) {
     $valid_key = htmlspecialchars(trim(str_replace(" ", "_", preg_replace("~[\r\n]~", " ",$key))));
     $output .= "<".$valid_key.">";
-    $output .= $v;
+    $output .= echo  "<![CDATA[".unescape($v)."]]>";
     $output .= "</".$valid_key.">";
   }
 
