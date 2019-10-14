@@ -5,4 +5,4 @@
 
 RewriteEngine On
 RewriteRule ^([^/]*)/([^/]*)/([^/]*)\.xml$ entries_sorted.php?id=$1&status=$2&category=$3 [L]
-RewriteRule ^([^/]*)/entering_organisations/([^/]*)\.xml$ entering_organisations.php?id=$1 [L]
+RewriteRule ^entering_organisations/([^/]*)\.xml$ entering_organisations.php?id=$1&type=xml [L]
