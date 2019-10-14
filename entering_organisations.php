@@ -9,6 +9,7 @@ header("Pragma: no-cache");
 header("Expires: 0");
 
 // 0. require config and connect to database
+require_once('functions.php');
 require_once('config.php');
 $mysql = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 $mysql->query("SET NAMES utf8"); 
@@ -88,7 +89,7 @@ foreach ($entries as $entry => $value) {
               <?php
                 $valid_key = htmlspecialchars(trim(str_replace(" ", "_", preg_replace("~[\r\n]~", " ",$key))));
                 echo "<".$valid_key.">";
-                echo  $v;
+                echo  unescape($v);
                 echo "</".$valid_key.">";
               ?>
             <?php endforeach; ?>
