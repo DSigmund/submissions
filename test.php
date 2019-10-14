@@ -25,9 +25,32 @@ if ($result->num_rows > 0) {
   echo "0 results";
 }
 $mysql->close();
-echo "<pre>";
+/*echo "<pre>";
 print_r($entries);
-echo "</pre>";
+echo "</pre>";*/
 
+$output = "<ul>";
+// 2. create header-line from this
+/*$headers = array_keys($entries[array_keys($entries)[0]]);
+for ($j=0; $j < count($headers); $j++) { 
+  $output .= $headers[$j]."|";
+}
+$output = rtrim($output, "|");
+$output .= "\n";
+*/
+// 3. create lines with values
+foreach ($entries as $entry => $value) {
+  foreach ($value as $key => $v) {
+    if ($key == 'title-in-english')
+    $output .= "<li>";
+    $output .= $v;
+    $output .= "</li>";
+  }
+  $output .= "</entry>";
+}
+// 4. echo values
+echo $output;
+
+// 5. die
 die();
 ?>
