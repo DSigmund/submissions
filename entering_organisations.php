@@ -29,7 +29,7 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
     // 1. Fill Named array with fields
     $entries[$row["data_id"]]["data_id"] = $row["data_id"];
-    $entries[$row["data_id"]][$row["name"]] = htmlspecialchars(trim(preg_replace("~[\r\n]~", " ",$row["value"])));
+    $entries[$row["data_id"]][$row["name"]] = trim(preg_replace("~[\r\n]~", " ",$row["value"]));
   }
 } else {
   echo "0 results";
