@@ -89,7 +89,7 @@ foreach ($entries as $entry => $value) {
               <?php
                 $valid_key = htmlspecialchars(trim(str_replace(" ", "_", preg_replace("~[\r\n]~", " ",$key))));
                 echo "<".$valid_key.">";
-                echo  "<![CDATA[".unescape($v)."]>";
+                echo  "<![CDATA[".unescape($v)."]]>";
                 echo "</".$valid_key.">";
               ?>
             <?php endforeach; ?>
