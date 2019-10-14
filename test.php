@@ -43,7 +43,7 @@ foreach ($entries as $entry => $value) {
   foreach ($value as $key => $v) {
     if ($key == 'title-in-english') {
     $output .= "<li>";
-    $output .= $v;
+    $output .= htmlspecialchars($v);
     $output .= "</li>";
     }
   }
