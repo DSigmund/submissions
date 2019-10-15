@@ -35,7 +35,7 @@ $mysql->close();
     <title>PJ <?php echo PJ_YEAR;?> - Entries - Main TV</title>
   </head>
   <body>
-    <div class="container">
+    <div class="container-fluid">
       <h1>PJ <?php echo PJ_YEAR;?> - Entries - Main TV</h1>
       <table class="table table-striped table-hover">
         <thead>
