@@ -32,15 +32,16 @@ $mysql->close();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-sortable.css">
     <title>PJ <?php echo PJ_YEAR;?> - Entries - Main TV</title>
   </head>
   <body>
     <div class="container-fluid">
       <h1>PJ <?php echo PJ_YEAR;?> - Entries - Main TV</h1>
-      <table class="table table-striped table-hover">
+      <table class="table table-striped table-hover sortable">
         <thead>
           <tr>
-            <th>Number Provisional</th> 
+            <th data-defaultsort="desc">Number Provisional</th> 
             <th>Title in English</th>
             <th>Entered By</th>
             <th>Entering Name</th>
@@ -87,6 +88,9 @@ $mysql->close();
         </tbody>
       </table>
     </div>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/bootstrap-sortable.js"></script>
   </body>
 </html>
 
