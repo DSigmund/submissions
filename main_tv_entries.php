@@ -41,8 +41,9 @@ $mysql->close();
       <table class="table table-striped table-hover sortable">
         <thead>
           <tr>
-            <th data-defaultsort="asc">Number Provisional</th> 
+            <th>Number Provisional</th> 
             <th>Title in English</th>
+            <th data-defaultsort="asc">Category</th>
             <th>Entered By</th>
             <th>Entering Name</th>
             <th>Duration</th>
@@ -73,6 +74,7 @@ $mysql->close();
           <tr>
             <td><?php echo unescape($value["number-provisional"]);?></td>
             <td><?php echo unescape($value["title-in-english"]);?></td>
+            <td><?php echo unescape($value["category"]);?></td>
             <td><?php echo unescape($value["entered-by"]);?></td>
             <td><?php echo $telecaster ? unescape($value["name-telecaster"]) : unescape($value["name-producing-company"]);?></td>
             <td><?php echo unescape($value["duration-in-minutes"]);?></td>
