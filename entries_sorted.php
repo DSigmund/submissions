@@ -74,44 +74,46 @@ foreach ($entries as $entry => $value) {
 
   $output .= "<mediabar>".$value["DVD"]."</mediabar>";
   
+  $telecaster = $value["entered-by"]== "Telecaster / Digital Distributor";
+
   $output .= "<entering-name>";
-  $output .= ($value["entered-by"]== "Telecaster / Digital Distributor") ? $value["name-telecaster"] : $value["name-producing-company"];
+  $output .= $telecaster ? "<![CDATA[".unescape($value["name-telecaster"])."]]>" : "<![CDATA[".unescape($value["name-producing-company"])."]]>";
   $output .= "</entering-name>";
 
   $output .= "<entering-street>";
-  $output .= ($value["entered-by"]== "Telecaster / Digital Distributor") ? $value["street-telecaster"] : $value["street-producing-company"];
+  $output .= $telecaster ? "<![CDATA[".unescape($value["street-telecaster"])."]]>" : "<![CDATA[".unescape($value["street-producing-company"])."]]>";
   $output .= "</entering-street>";
 
   $output .= "<entering-city>";
-  $output .= ($value["entered-by"]== "Telecaster / Digital Distributor") ? $value["city-telecaster"] : $value["city-producing-company"];
+  $output .= $telecaster ? "<![CDATA[".unescape($value["city-telecaster"])."]]>" : "<![CDATA[".unescape($value["city-producing-company"])."]]>";
   $output .= "</entering-city>";
 
   $output .= "<entering-zipcode>";
-  $output .= ($value["entered-by"]== "Telecaster / Digital Distributor") ? $value["zip-telecaster"] : $value["zip-producing-company"];
+  $output .= $telecaster ? "<![CDATA[".unescape($value["zip-telecaster"])."]]>" : "<![CDATA[".unescape($value["zip-producing-company"])."]]>";
   $output .= "</entering-zipcode>";
 
   $output .= "<entering-country>";
-  $output .= ($value["entered-by"]== "Telecaster / Digital Distributor") ? $value["country-telecaster"] : $value["country-producing-company"];
+  $output .= $telecaster ? "<![CDATA[".unescape($value["country-telecaster"])."]]>" : "<![CDATA[".unescape($value["country-producing-company"])."]]>";
   $output .= "</entering-country>";
 
   $output .= "<entering-contact>";
-  $output .= ($value["entered-by"]== "Telecaster / Digital Distributor") ? $value["contact-telecaster-first-name"] ." ". $value["contact-telecaster-last-name"] : $value["contact-first-name"] . " " . $value["contact-last-name"];
+  $output .= $telecaster ? "<![CDATA[".unescape($value["contact-telecaster-first-name"])." ".unescape($value["contact-telecaster-last-name"])."]]>" : "<![CDATA[".unescape($value["contact-first-name"]). " " .unescape($value["contact-last-name"])."]]>";
   $output .= "</entering-contact>";
 
   $output .= "<entering-contactFirstName>";
-  $output .= ($value["entered-by"]== "Telecaster / Digital Distributor") ? $value["contact-telecaster-last-name"] : $value["contact-first-name"] ;
+  $output .= $telecaster ? "<![CDATA[".unescape($value["contact-telecaster-first-name"])."]]>" : "<![CDATA[".unescape($value["contact-first-name"])."]]>" ;
   $output .= "</entering-contactFirstName>";
 
   $output .= "<entering-contactLastName>";
-  $output .= ($value["entered-by"]== "Telecaster / Digital Distributor") ? $value["contact-telecaster-last-name"] : $value["contact-last-name"];
+  $output .= $telecaster ? "<![CDATA[".unescape($value["contact-telecaster-last-name"])."]]>" : "<![CDATA[".unescape($value["contact-last-name"])."]]>";
   $output .= "</entering-contactLastName>";
 
   $output .= "<entering-email>";
-  $output .= ($value["entered-by"]== "Telecaster / Digital Distributor") ? $value["contact-telecaster-email"] : $value["contact-email"];
+  $output .= $telecaster ? "<![CDATA[".unescape($value["contact-telecaster-email"])."]]>" : "<![CDATA[".unescape($value["contact-email"])."]]>";
   $output .= "</entering-email>";
 
   $output .= "<entering-phone>";
-  $output .= ($value["entered-by"]== "Telecaster / Digital Distributor") ? $value["contact-telecaster-phone"] : $value["contact-phone"];
+  $output .= $telecaster ? "<![CDATA[".unescape($value["contact-telecaster-phone"])."]]>" : "<![CDATA[".unescape($value["contact-phone"])."]]>";
   $output .= "</entering-phone>";
 
   

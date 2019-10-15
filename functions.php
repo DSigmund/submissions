@@ -1,7 +1,6 @@
 <?php
 function unescape($input) {
-  $output = html_entity_decode($input);
-  $output = str_replace("\\", "", $output);
-  return $output;
+  $output = str_replace("\\", "", $input);
+  return html_entity_decode($output);
 }
 ?>
