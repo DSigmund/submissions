@@ -43,7 +43,7 @@ $mysql->close();
           <tr>
             <th>Number Provisional</th> 
             <th>Title in English</th>
-            <th data-defaultsort="asc">Category</th>
+            <th data-defaultsort="desc">Category</th>
             <th>Entered By</th>
             <th>Entering Name</th>
             <th>Duration</th>
