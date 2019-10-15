@@ -41,7 +41,7 @@ $mysql->close();
       <table class="table table-striped table-hover sortable">
         <thead>
           <tr>
-            <th data-defaultsort="desc">Number Provisional</th> 
+            <th data-defaultsort="asc">Number Provisional</th> 
             <th>Title in English</th>
             <th>Entered By</th>
             <th>Entering Name</th>
