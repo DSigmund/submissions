@@ -41,9 +41,9 @@ $mysql->close();
       <table class="table table-striped table-hover sortable">
         <thead>
           <tr>
-            <th>Number Provisional</th> 
+            <th data-defaultsort="asc">Number Provisional</th> 
             <th>Title in English</th>
-            <th data-defaultsort="desc">Category</th>
+            <th>Category</th>
             <th>Entered By</th>
             <th>Entering Name</th>
             <th>Duration</th>
@@ -70,11 +70,13 @@ $mysql->close();
               continue;
             }
             $telecaster = $value["entered-by"]== "Telecaster / Digital Distributor";
+            $catsort = cat2Sort($value["category"]);
+            $numsort = num2Sort($value["number-provisional"]);
           ?>
           <tr>
-            <td><?php echo unescape($value["number-provisional"]);?></td>
+            <td data-value="<?php echo $numsort;?>"><?php echo unescape($value["number-provisional"]);?></td>
             <td><?php echo unescape($value["title-in-english"]);?></td>
-            <td><?php echo unescape($value["category"]);?></td>
+            <td data-value="<?php echo $catsort;?>"><?php echo unescape($value["category"]);?></td>
             <td><?php echo unescape($value["entered-by"]);?></td>
             <td><?php echo $telecaster ? unescape($value["name-telecaster"]) : unescape($value["name-producing-company"]);?></td>
             <td><?php echo unescape($value["duration-in-minutes"]);?></td>
