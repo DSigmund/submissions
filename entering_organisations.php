@@ -104,11 +104,11 @@ foreach ($entries as $entry => $value) {
   <?php endforeach; ?>
 </xml>
 <?php elseif($type == "csv"): ?>
-org_name;org_country;entry_name;entry_duration;entry_number_prov;entry_number_final;entry_status;entry_category;entry_submission_id
+Organisation|Country|Entry Name|Entry Duration|Nummerierung|Nummerierung Final|Status|Category|Submission ID
   <?php foreach ($organisations as $org => $value):?>
     <?php foreach ($value["entries"] as $key => $entry):?>
       <?php
-echo trim($value["name"]) . ";" . $value["country"] . ";" . unescape($entry["title-in-english"]) . ";" . $entry["duration-in-minutes"] . ";" . $entry["number-provisional"] . ";" . $entry["number-final"] . ";" . $entry["status"] . ";" . $entry["category"] . ";" . $entry["category"] . ";" . $entry["data_id"] . "\n";
+echo unescape(trim($value["name"])) . "|" . $value["country"] . "|" . unescape($entry["title-in-english"]) . "|" . $entry["duration-in-minutes"] . "|" . $entry["number-provisional"] . "|" . $entry["number-final"] . "|" . $entry["status"] . "|" . $entry["category"] . "|" . $entry["data_id"] . "\n";
       ?>
     <?php endforeach; ?>
   <?php endforeach; ?>
