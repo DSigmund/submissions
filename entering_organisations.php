@@ -104,17 +104,9 @@ foreach ($entries as $entry => $value) {
   org_name;org_country;entry_name;entry_duration
   <?php foreach ($organisations as $org => $value):?>
     <?php foreach ($value["entries"] as $key => $entry):?>
-        <?php foreach ($entry as $key => $v):?>
-          <?php
-            echo $value["name"];
-            echo ";";
-            echo $value["country"];
-            echo ";";
-            echo $v["title-in-english"];
-            echo ";";
-            echo $v["duration-in-minutes"];
-          ?>
-        <?php endforeach; ?>
+      <?php
+        echo $value["name"] . ";" . $value["country"] . ";" . unescape($entry["title-in-english"]) . ";" . $entry["duration-in-minutes"];
+      ?>
     <?php endforeach; ?>
   <?php endforeach; ?>
 <?php else: ?>
