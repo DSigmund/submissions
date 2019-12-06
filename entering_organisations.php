@@ -4,6 +4,7 @@ $type = $_GET["type"];
 // Create CSV for Form by ID
 
 if($type == "xml") { header("Content-type: text/xml; charset=utf-8"); }
+if($type == "csv") { header("Content-type: text/plain; charset=utf-8"); }
 // header("Content-Disposition: attachment; filename=".$id.".xml");
 header("Pragma: no-cache");
 header("Expires: 0");
@@ -99,6 +100,23 @@ foreach ($entries as $entry => $value) {
     </organisation>
   <?php endforeach; ?>
 </xml>
+<?php elseif($type == "csv"): ?>
+  org_name;org_country;entry_name;entry_duration
+  <?php foreach ($organisations as $org => $value):?>
+    <?php foreach ($value["entries"] as $key => $entry):?>
+        <?php foreach ($entry as $key => $v):?>
+          <?php
+            echo $value["name"];
+            echo ";";
+            echo $value["country"];
+            echo ";";
+            echo $v["title-in-english"];
+            echo ";";
+            echo $v["duration-in-minutes"];
+          ?>
+        <?php endforeach; ?>
+    <?php endforeach; ?>
+  <?php endforeach; ?>
 <?php else: ?>
 <html>
 <head>
