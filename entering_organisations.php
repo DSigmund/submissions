@@ -108,7 +108,7 @@ Organisation|Country|Entry Name|Entry Duration|Nummerierung|Nummerierung Final|S
   <?php foreach ($organisations as $org => $value):?>
     <?php foreach ($value["entries"] as $key => $entry):?>
       <?php
-echo unescape(trim($value["name"])) . "|" . $value["country"] . "|" . unescape($entry["title-in-english"]) . "|" . $entry["duration-in-minutes"] . "|" . $entry["number-provisional"] . "|" . $entry["number-final"] . "|" . $entry["status"] . "|" . $entry["category"] . "|" . $entry["data_id"] . "\n";
+echo unescape(trim($value["name"])) . "|" . $value["country"] . "|" . unescape($entry["title-in-english"]) . "|" . excelNumber($entry["duration-in-minutes"]) . "|" . $entry["number-provisional"] . "|" . $entry["number-final"] . "|" . $entry["status"] . "|" . $entry["category"] . "|" . $entry["data_id"] . "\n";
       ?>
     <?php endforeach; ?>
   <?php endforeach; ?>

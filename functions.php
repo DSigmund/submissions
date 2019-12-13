@@ -5,6 +5,9 @@ function unescape($input) {
   $output = str_replace("&quot;", "\"", $output);
   return $output;
 }
+function excelNumber($input) {
+  return str_replace(".", ",", $input);
+}
 function cat2Sort($category) {
   switch($category) {
     case "Up to 6 Years Fiction": return 0;
