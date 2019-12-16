@@ -34,7 +34,7 @@ if ($result->num_rows > 0) {
 }
 $mysql->close();
 ?>
-SubmissionId|Nummerierung|Nummer final|Programme Title|EnteredBy|entering_name|entering_country|Length|Upload_link|Upload_Eingang_und_Qualitaet|Script|Photos|Technik_Check|PermissionforCopyBar|Telecaster_Confirmation|Summary_reviewed|Comment
+SubmissionId|Category|Nummerierung|Nummer final|Programme Title|EnteredBy|entering_name|entering_country|Length|Upload_link|Upload_Eingang_und_Qualitaet|Script|Photos|Technik_Check|PermissionforCopyBar|Telecaster_Confirmation|Summary_reviewed|Comment
 <?php
 echo "\n";
 foreach ($entries as $entry => $value) {
@@ -53,6 +53,8 @@ foreach ($entries as $entry => $value) {
   $telecaster = $value["entered-by"]== "Telecaster / Digital Distributor";
 
   echo $value["data_id"];
+  echo "|";
+  echo $value["category"];
   echo "|";
   echo $value["number-provisional"];
   echo "|";
