@@ -36,7 +36,6 @@ $mysql->close();
 ?>
 SubmissionId|Category|Nummerierung|Nummer final|Programme Title|EnteredBy|entering_name|entering_country|Length|Upload_link|Upload_Eingang_und_Qualitaet|Script|Photos|Technik_Check|PermissionforCopyBar|Telecaster_Confirmation|Summary_reviewed|Comment
 <?php
-echo "\n";
 foreach ($entries as $entry => $value) {
   $skip = false;
   foreach ($value as $key => $v) {
