@@ -4,7 +4,8 @@ function unescape($input) {
   $output = str_replace("’", "\'", $output);
   $output =  html_entity_decode($output);
   $output = str_replace("&quot;", "\"", $output);
-  $output = str_replace("&amp;", "\&", $output);
+  $output = str_replace("&amp;", "&", $output);
+  $output = str_replace("\’", "'", $output);
   return $output;
 }
 function excelNumber($input) {
