@@ -5,8 +5,8 @@ ini_set("memory_limit","1024M");
 
 // Create CSV for Form by ID
 
-// header("Content-type: text/csv; charset=utf-8");
-// header("Content-Disposition: attachment; filename=".$id.".csv");
+header("Content-type: text/csv; charset=utf-8");
+header("Content-Disposition: attachment; filename=entries_csv_".$id.".csv");
 header("Pragma: no-cache");
 header("Expires: 0");
 
