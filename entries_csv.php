@@ -52,7 +52,7 @@ foreach ($entries as $entry => $value) {
   foreach ($value as $key => $v) {
     $output .= unescape($v)."|";
   }
-  $output .= rtrim($output, "|");
+  $output = rtrim($output, "|");
   $output .= "\n";
 }
 // 4. echo values
