@@ -9,6 +9,7 @@ header("Expires: 0");
 
 // 0. require config and connect to database
 require_once('config.php');
+require_once('functions.php');
 $mysql = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 $mysql->query("SET NAMES utf8"); 
 if ($mysql->connect_error) {
@@ -46,7 +47,7 @@ $output .= "\n";
 // 3. create lines with values
 foreach ($entries as $entry => $value) {
   foreach ($value as $key => $v) {
-    $output .= $v."|";
+    $output .= unescape($v)."|";
   }
   $output .= rtrim($output, "|");
   $output .= "\n";
