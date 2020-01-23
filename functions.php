@@ -2,6 +2,7 @@
 function unescape($input) {
   $output = str_replace("\\", "", $input);
   $output = str_replace("’", "\'", $output);
+  $output = str_replace("|", ";", $output);
   $output =  html_entity_decode($output);
   // $output = htmlspecialchars_decode($output);
   $output = str_replace("&quot;", "\"", $output);
