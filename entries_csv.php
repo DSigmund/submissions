@@ -19,7 +19,7 @@ if ($mysql->connect_error) {
   die("Connection failed: " . $mysql->connect_error);
 } 
 
-$sql = "SELECT data_id, name, value FROM Td6PNmU6_cf7_vdata_entry WHERE cf7_id=".$id." AND name NOT LIKE \"\\_%\" AND name NOT \"g-recaptcha-response\" ORDER BY data_id ASC, name ASC";
+$sql = "SELECT data_id, name, value FROM Td6PNmU6_cf7_vdata_entry WHERE cf7_id=".$id." AND name NOT LIKE \"\\_%\" ORDER BY data_id ASC, name ASC";
 
 $result = $mysql->query($sql);
 
@@ -28,7 +28,9 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
     // 1. Fill Named array with fields
     $entries[$row["data_id"]]["data_id"] = $row["data_id"];
-    $entries[$row["data_id"]][$row["name"]] = trim(preg_replace("~[\r\n]~", " ",$row["value"]));
+    if($row["name"] != "g-captcha-response") {
+      $entries[$row["data_id"]][$row["name"]] = trim(preg_replace("~[\r\n]~", " ",$row["value"]));
+    }
   }
 } else {
   echo "0 results";
