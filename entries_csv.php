@@ -1,6 +1,8 @@
 <?php
 $id = $_GET["id"];
 
+$delimeter = "Þ";
+
 ini_set("memory_limit","1024M");
 
 // Create CSV for Form by ID
@@ -44,17 +46,17 @@ echo "</pre>";*/
 // 2. create header-line from this
 $headers = array_keys($entries[array_keys($entries)[0]]);
 for ($j=0; $j < count($headers); $j++) { 
-  $output .= $headers[$j]."|";
+  $output .= $headers[$j].$delimeter;
 }
-$output = rtrim($output, "|");
+$output = rtrim($output, $delimeter);
 $output .= "\n";
 
 // 3. create lines with values
 foreach ($entries as $entry => $value) {
   foreach ($value as $key => $v) {
-    $output .= unescape($v)."|";
+    $output .= unescape($v).$delimeter;
   }
-  $output = rtrim($output, "|");
+  $output = rtrim($output, $delimeter);
   $output .= "\n";
 }
 // 4. echo values
