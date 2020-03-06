@@ -28,7 +28,7 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
     // 1. Fill Named array with fields
     $entries[$row["data_id"]]["data_id"] = $row["data_id"];
-    if($row["name"] != "g-captcha-response") {
+    if($row["name"] != "g-recaptcha-response" && $row["name"] != "dsgvo") {
       $entries[$row["data_id"]][$row["name"]] = trim(preg_replace("~[\r\n]~", " ",$row["value"]));
     }
   }
