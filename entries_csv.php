@@ -19,7 +19,7 @@ if ($mysql->connect_error) {
   die("Connection failed: " . $mysql->connect_error);
 } 
 
-$sql = "SELECT data_id, name, value FROM Td6PNmU6_cf7_vdata_entry WHERE cf7_id=".$id." AND name NOT LIKE \"\\_%\" ORDER BY data_id ASC, name ASC";
+$sql = "SELECT data_id, name, value FROM Td6PNmU6_cf7_vdata_entry WHERE cf7_id=".$id." AND name NOT LIKE \"\\_%\" AND name NOT \"g-recaptcha-response\" ORDER BY data_id ASC, name ASC";
 
 $result = $mysql->query($sql);
 
