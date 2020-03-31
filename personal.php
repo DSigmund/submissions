@@ -38,25 +38,36 @@ if ($result->num_rows > 0) {
   echo "0 results";
 }
 $mysql->close();
-echo "<pre>";
-print_r($entries);
-echo "</pre>";
-die();
 
+$output .= "data_id".$delimeter."family-name".$delimeter."first-name".$delimeter."contact-email".$delimeter."arrival".$delimeter."departure".$delimeter;
+$output .= "zip".$delimeter."city".$delimeter."country".$delimeter;
+$output .= "department".$delimeter."job-title".$delimeter."organisation".$delimeter;
+$output .= "involved".$delimeter."phone".$delimeter."submit_time".$delimeter;
+$output .= "participation".$delimeter."voting";  
 
-// 2. create header-line from this
-$headers = array_keys($entries[array_keys($entries)[0]]);
-for ($j=0; $j < count($headers); $j++) { 
-  $output .= $headers[$j].$delimeter;
-}
-$output = rtrim($output, $delimeter);
 $output .= "\n";
+
 
 // 3. create lines with values
 foreach ($entries as $entry => $value) {
-  foreach ($value as $key => $v) {
-    $output .= unescape($v).$delimeter;
-  }
+  $output .= unescape($value["data_id"]).$delimeter;
+  $output .= unescape($value["family-name"]).$delimeter;
+  $output .= unescape($value["first-name"]).$delimeter;
+  $output .= unescape($value["contact-email"]).$delimeter;
+  $output .= unescape($value["arrival"]).$delimeter;
+  $output .= unescape($value["departure"]).$delimeter;
+  $output .= unescape($value["zip"]).$delimeter;
+  $output .= unescape($value["city"]).$delimeter;
+  $output .= unescape($value["country"]).$delimeter;
+  $output .= unescape($value["department"]).$delimeter;
+  $output .= unescape($value["job-title"]).$delimeter;
+  $output .= unescape($value["organisation"]).$delimeter;
+  $output .= unescape($value["involved"]).$delimeter;
+  $output .= unescape($value["phone"]).$delimeter;
+  $output .= unescape($value["submit_time"]).$delimeter;
+  $output .= unescape($value["participation"]).$delimeter;
+  $output .= unescape($value["voting"]).$delimeter;
+
   $output = rtrim($output, $delimeter);
   $output .= "\n";
 }
