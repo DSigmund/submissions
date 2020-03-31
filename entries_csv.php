@@ -1,7 +1,7 @@
 <?php
 $id = $_GET["id"];
 
-$delimeter = "Þ";
+$delimeter = "¶";
 
 ini_set("memory_limit","1024M");
 
