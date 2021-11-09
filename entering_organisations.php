@@ -46,6 +46,15 @@ $sum_count = 0;
 $sum_minutes = 0;
 // 2. Create new array with values
 foreach ($entries as $entry => $value) {
+	$skip = false;
+            foreach ($value as $key => $v) {
+              if($key == "status" && $v[0] != "3") {
+                $skip = true;
+              }
+            }
+            if($skip) {
+              continue;
+            }
   $name = "";
   if($value["entered-by"] == "Producing Organisation") {
     $name = $value["name-producing-company"];
@@ -53,6 +62,13 @@ foreach ($entries as $entry => $value) {
     $name = $value["name-telecaster"];
   }
   $organisations[$name]["name"] = $name;
+
+  if($value["entered-by"] == "Producing Organisation") {
+    $type = "producing-company";
+  } else {
+    $type = "telecaster";
+  }
+  $organisations[$name]["type"] = $type;
 
   $country = "";
   if($value["entered-by"] == "Producing Organisation") {
@@ -127,6 +143,7 @@ echo unescape(trim($value["name"])) . "|" . $value["country"] . "|" . unescape($
     <h1>PJ <?php echo PJ_YEAR;?>- Entering Organisations for Form <?php echo $title; ?></h1>
     <p class="alert alert-info"><?php echo count($organisations);?> Organisations with <?php echo $sum_count;?>&nbsp;Entries with <?php echo $sum_minutes;?> minutes</p>
     <hr/>
+    <h2>Telecaster</h2>
     <table class="table table-striped table-hover table-bordered">
       <thead>
         <tr>
@@ -140,32 +157,77 @@ echo unescape(trim($value["name"])) . "|" . $value["country"] . "|" . unescape($
       </thead>
       <tbody>
         <?php foreach ($organisations as $org => $value):?>
-          <tr>
-            <th><?php echo $value["name"];?></th>
-            <th><?php echo $value["country"];?></th>
-            <th></th>
-            <th></th>
-            <th><?php echo $value["count"];?></th>
-            <th><?php echo $value["minutes"];?></th>
-          </tr>
-          <?php foreach ($value["entries"] as $key => $v):?>
+          <?php if($value["type"] == "telecaster"): ?>
             <tr>
-              <td></td>
-              <td><?php echo $v["data_id"];?></td>
-              <td><?php echo $v["title-in-english"];?></td>
-              <td></td>
-              <td><?php echo $v["duration-in-minutes"];?></td>
+              <th><?php echo $value["name"];?></th>
+              <th><?php echo $value["country"];?></th>
+              <th></th>
+              <th></th>
+              <th><?php echo $value["count"];?></th>
+              <th><?php echo $value["minutes"];?></th>
             </tr>
-          <?php endforeach; ?>
-          <tr>
-            <th colspan="3" style="text-align:right;">SUM</th>
-            <th><?php echo $value["count"];?></th>
-            <th><?php echo $value["minutes"];?></th>
-          </tr>
+            <?php foreach ($value["entries"] as $key => $v):?>
+              <tr>
+                <td></td>
+                <td><?php echo $v["data_id"];?></td>
+                <td><?php echo $v["title-in-english"];?></td>
+                <td></td>
+                <td><?php echo $v["duration-in-minutes"];?></td>
+              </tr>
+            <?php endforeach; ?>
+            <tr>
+              <th colspan="3" style="text-align:right;">SUM</th>
+              <th><?php echo $value["count"];?></th>
+              <th><?php echo $value["minutes"];?></th>
+            </tr>
+          <?php endif; ?>
         <?php endforeach; ?>
       </tbody>
     </table>
     <hr/>
+    <h2>Producing Organisations</h2>
+    <table class="table table-striped table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>Organisation</th>
+          <th>Country</th>
+          <th data-defaultsort="desc">Submission ID</th>
+          <th>Programme</th>
+          <th>Count</th>
+          <th>Minutes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($organisations as $org => $value):?>
+          <?php if($value["type"] == "producing-organisation"): ?>
+            <tr>
+              <th><?php echo $value["name"];?></th>
+              <th><?php echo $value["country"];?></th>
+              <th></th>
+              <th></th>
+              <th><?php echo $value["count"];?></th>
+              <th><?php echo $value["minutes"];?></th>
+            </tr>
+            <?php foreach ($value["entries"] as $key => $v):?>
+              <tr>
+                <td></td>
+                <td><?php echo $v["data_id"];?></td>
+                <td><?php echo $v["title-in-english"];?></td>
+                <td></td>
+                <td><?php echo $v["duration-in-minutes"];?></td>
+              </tr>
+            <?php endforeach; ?>
+            <tr>
+              <th colspan="3" style="text-align:right;">SUM</th>
+              <th><?php echo $value["count"];?></th>
+              <th><?php echo $value["minutes"];?></th>
+            </tr>
+          <?php endif; ?>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+    <hr/>
+    <!--
     <h1>Single Organisations</h1>
     <?php foreach ($organisations as $org => $value):?>
       <h2><?php echo $value["name"];?> (<?php echo $value["country"];?>)<small><?php echo $value["count"];?>&nbsp;Entries with <?php echo $value["minutes"];?> minutes</small></h2>
@@ -197,7 +259,7 @@ echo unescape(trim($value["name"])) . "|" . $value["country"] . "|" . unescape($
       <hr/>
     <?php endforeach; ?>
 
-
+          -->
 
     <h1>Organisations List</h1>
     <table class="table table-striped table-hover sortable">

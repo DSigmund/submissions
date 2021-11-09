@@ -26,7 +26,7 @@ require_once('config.php');
             <tr>
               <th><?php echo CAT_MAIN_TV;?></th>
               <td>Main TV Categories Entry Form</td>
-              <td><a href="submissions.php?id=<?php echo CAT_MAIN_TV;?>" target="_blank">Submissions</a></td>
+              <td><a href="main_tv_entries.php" target="_blank">Submissions</a></td>
               <td><a class="" href="xls/pj<?php echo PJ_YEAR;?>_main_tv_categories.xlsx">Download Submissions Excel</a></td>
               <td><a href="entering_organisations.php?id=<?php echo CAT_MAIN_TV;?>&type=html" target="_blank">Entering Organisations</a></td>
               <td><a class="" href="xla/PJ<?php echo PJ_YEAR;?>_entering_organisations_main_tv.xlsx">Download EO Excel</a></td>
@@ -34,7 +34,7 @@ require_once('config.php');
             <tr>
               <th><?php echo CAT_SHORTS;?></th>
               <td>Shorts Entry Form</td>
-              <td><a href="submissions.php?id=<?php echo CAT_SHORTS;?>" target="_blank">Submissions</a></td>
+              <td><a href="shorts.php" target="_blank">Submissions</a></td>
               <td></td>
               <td><a href="entering_organisations.php?id=<?php echo CAT_SHORTS;?>&type=html" target="_blank">Entering Organisations</a></td>
               <td></td>
