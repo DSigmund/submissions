@@ -185,7 +185,7 @@ echo unescape(trim($value["name"])) . "|" . $value["country"] . "|" . unescape($
       </tbody>
     </table>
     <hr/>
-    <h2>Producing Organisations</h2>
+    <h2>Producing Companies</h2>
     <table class="table table-striped table-hover table-bordered">
       <thead>
         <tr>
@@ -199,7 +199,7 @@ echo unescape(trim($value["name"])) . "|" . $value["country"] . "|" . unescape($
       </thead>
       <tbody>
         <?php foreach ($organisations as $org => $value):?>
-          <?php if($value["type"] == "producing-organisation"): ?>
+          <?php if($value["type"] == "producing-company"): ?>
             <tr>
               <th><?php echo $value["name"];?></th>
               <th><?php echo $value["country"];?></th>
