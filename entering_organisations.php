@@ -2,7 +2,7 @@
 $id = $_GET["id"];
 $type = $_GET["type"];
 $sort_by = $_GET["sort"] ?? 'name';
-$sort_order = $_GET["order"] ?? 'asc';
+$sort_order = $_GET["order"] ?? 'desc';
 // Create CSV for Form by ID
 
 if($type == "xml") { header("Content-type: text/xml; charset=utf-8"); }
