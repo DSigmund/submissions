@@ -2,6 +2,7 @@
 $id = $_GET["id"];
 $type = $_GET["type"];
 $sort_by = $_GET["sort"] ?? 'name';
+$sort_order = $_GET["order"] ?? 'asc';
 // Create CSV for Form by ID
 
 if($type == "xml") { header("Content-type: text/xml; charset=utf-8"); }
@@ -95,7 +96,10 @@ foreach ($entries as $entry => $value) {
 }
 
 // sort by given field
-usort($organisations, function($a, $b) {return strcmp($a[$sort_by], $b[$sort_by]);});
+// usort($organisations, function($a, $b) {return strcmp($a[$sort_by], $b[$sort_by]);});
+$sorter = array_column($organisations, $sort_by);
+
+array_multisort($sorter, $order=='asc' ? SORT_ASC : SORT_DESC, $organisations);
 
 ?>
 <?php if($type == "xml"): ?>
