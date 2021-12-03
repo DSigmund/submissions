@@ -96,10 +96,9 @@ foreach ($entries as $entry => $value) {
 }
 
 // sort by given field
-// usort($organisations, function($a, $b) {return strcmp($a[$sort_by], $b[$sort_by]);});
 $sorter = array_column($organisations, $sort_by);
 
-array_multisort($sorter, $order=='asc' ? SORT_ASC : SORT_DESC, $organisations);
+array_multisort($sorter, ($order == 'asc') ? SORT_ASC : SORT_DESC, $organisations);
 
 ?>
 <?php if($type == "xml"): ?>
