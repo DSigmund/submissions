@@ -1,6 +1,7 @@
 <?php
 $id = $_GET["id"];
 $type = $_GET["type"];
+$sort_by = $_GET["sort"] ?? 'name';
 // Create CSV for Form by ID
 
 if($type == "xml") { header("Content-type: text/xml; charset=utf-8"); }
@@ -92,6 +93,9 @@ foreach ($entries as $entry => $value) {
   $organisations[$name]["entries"][] = $value;
   $sum_minutes += $value["duration-in-minutes"];
 }
+
+// sort by given field
+usort($organisations, function($a, $b) {return strcmp($a[$sort_by], $b[$sort_by]);});
 
 ?>
 <?php if($type == "xml"): ?>
