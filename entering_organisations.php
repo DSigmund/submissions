@@ -98,7 +98,7 @@ foreach ($entries as $entry => $value) {
 // sort by given field
 $sorter = array_column($organisations, $sort_by);
 
-array_multisort($sorter, ($order == 'asc') ? SORT_ASC : SORT_DESC, $organisations);
+array_multisort($sorter, ($order == 'desc') ? SORT_DESC : SORT_ASC, $organisations);
 
 ?>
 <?php if($type == "xml"): ?>
