@@ -5,11 +5,22 @@ $sort_by = $_GET["sort"] ?? 'name';
 $sort_order = $_GET["order"] ?? 'desc';
 // Create CSV for Form by ID
 
+// Enforce allowed values for $sort_by and $sort_order to prevent SQL Injection through them
+$allowed_type_fields = ['xml', 'csv', 'html']; // Define allowed fields for sorting
+$allowed_sort_fields = ['name', 'data_id', 'value']; // Define allowed fields for sorting
+$allowed_sort_orders = ['asc', 'desc']; // Define allowed order keywords
+
+// Check if the provided sort field and order are allowed, if not, use defaults
+$type = in_array(strtolower($type), $allowed_type_fields) ? $type : 'html';
+$sort_by = in_array(strtolower($sort_by), $allowed_sort_fields) ? $sort_by : 'name';
+$sort_order = in_array(strtolower($sort_order), $allowed_sort_orders) ? $sort_order : 'desc';
+
+
 if($type == "xml") { header("Content-type: text/xml; charset=utf-8"); }
 if($type == "csv") { 
   header("Content-type: text/plain; charset=utf-8");
   header("Content-Disposition: attachment; filename=".$id.".csv");
- }
+}
 // header("Content-Disposition: attachment; filename=".$id.".xml");
 header("Pragma: no-cache");
 header("Expires: 0");
@@ -23,13 +34,21 @@ if ($mysql->connect_error) {
   die("Connection failed: " . $mysql->connect_error);
 } 
 
-$result0 = $mysql->query('SELECT post_title FROM Td6PNmU6_posts WHERE post_type="wpcf7_contact_form" AND id='.$id);
+// Prepared statement for the first query
+$stmt0 = $mysql->prepare('SELECT post_title FROM Td6PNmU6_posts WHERE post_type="wpcf7_contact_form" AND id = ?');
+$stmt0->bind_param('i', $id); // 'i' specifies the variable type is integer
+$stmt0->execute();
+$result0 = $stmt0->get_result();
 $row0 = $result0->fetch_assoc();
-$title = $id." - ".$row0["post_title"];
+$title = htmlspecialchars($id . " - " . $row0["post_title"]); // Protect against XSS
 
-$sql = "SELECT data_id, name, value FROM Td6PNmU6_cf7_vdata_entry WHERE cf7_id=".$id." AND name NOT LIKE \"\\_%\" ORDER BY data_id ASC, name ASC";
 
-$result = $mysql->query($sql);
+// Prepared statement for the second query
+$sql = "SELECT data_id, name, value FROM Td6PNmU6_cf7_vdata_entry WHERE cf7_id=? AND name NOT LIKE '\\_%' ORDER BY $sort_by $sort_order";
+$stmt = $mysql->prepare($sql);
+$stmt->bind_param('i', $id);
+$stmt->execute();
+$result = $stmt->get_result();
 
 $entries = array();
 if ($result->num_rows > 0) {
@@ -41,6 +60,7 @@ if ($result->num_rows > 0) {
 } else {
   echo "0 results";
 }
+$stmt->close();
 $mysql->close();
 
 $organisations = array();

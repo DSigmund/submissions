@@ -1,91 +1,100 @@
 <?php
 
-if(isset($_GET["category"])) {
-  $cat = $_GET["category"];
-} else {
-  $cat = "all";
-}
+$category = isset($_GET["category"]) ? $_GET["category"] : "all";
 
-// 0. require config and connect to database
+// Setting up headers for CSV output
+header("Content-type: text/plain; charset=utf-8");
+header("Content-Disposition: attachment; filename=\"2020_maintv_".htmlspecialchars($category).".csv\"");
+header("Pragma: no-cache");
+header("Expires: 0");
+
+// Include configuration and functions
 require_once('config.php');
 require_once('functions.php');
+
+// Establish database connection
 $mysql = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-$mysql->query("SET NAMES utf8"); 
+$mysql->set_charset("utf8");
+
 if ($mysql->connect_error) {
-  die("Connection failed: " . $mysql->connect_error);
-} 
+    die("Connection failed: " . $mysql->connect_error);
+}
 
-header("Content-type: text/plain; charset=utf-8");
-header("Content-Disposition: attachment; filename=2020_maintv_".$cat.".csv");
+// Prepared statement to fetch data securely
+$catValue = defined('CAT_MAIN_TV') ? CAT_MAIN_TV : 0; // Ensure CAT_MAIN_TV is defined
+$stmt = $mysql->prepare("SELECT data_id, name, value FROM Td6PNmU6_cf7_vdata_entry WHERE cf7_id = ? AND name NOT LIKE '\\_%' ORDER BY data_id ASC, name ASC");
+$stmt->bind_param("i", $catValue);
+$stmt->execute();
+$result = $stmt->get_result();
 
-$sql = "SELECT data_id, name, value FROM Td6PNmU6_cf7_vdata_entry WHERE cf7_id=".CAT_MAIN_TV." AND name NOT LIKE \"\\_%\" ORDER BY data_id ASC, name ASC";
-
-$result = $mysql->query($sql);
-
-$entries = array();
+$entries = [];
 if ($result->num_rows > 0) {
-  while($row = $result->fetch_assoc()) {
-    // 1. Fill Named array with fields
-    $entries[$row["data_id"]]["data_id"] = $row["data_id"];
-    $entries[$row["data_id"]][$row["name"]] = htmlspecialchars(trim(preg_replace("~[\r\n]~", " ",$row["value"])));
-  }
+    while($row = $result->fetch_assoc()) {
+        $data_id = $row["data_id"];
+        $name = $row["name"];
+        $entries[$data_id]["data_id"] = $data_id;
+        $entries[$data_id][$name] = htmlspecialchars(trim(preg_replace("~[\r\n]~", " ", $row["value"])));
+    }
 } else {
-  echo "0 results";
+    echo "0 results";
+    $mysql->close();
+    exit;
 }
-$mysql->close();
-?>
-SubmissionId|Category|Nummerierung|Nummer final|Programme Title|EnteredBy|entering_name|entering_country|Length|Upload_link|Upload_Eingang_und_Qualitaet|Script|Photos|Technik_Check|PermissionforCopyBar|Telecaster_Confirmation|Summary_reviewed|Comment
-<?php
-foreach ($entries as $entry => $value) {
-  $skip = false;
-  foreach ($value as $key => $v) {
-    if($cat != "all" && $key == "category" && $v != str_replace("_", " ", $cat)) {
-      $skip = true;
-    }
-    if($key == "status" && $v[0] != "3") {
-      $skip = true;
-    }
-  }
-  if($skip) {
-    continue;
-  }
-  $telecaster = $value["entered-by"]== "Telecaster / Digital Distributor";
 
-  echo $value["data_id"];
-  echo "|";
-  echo $value["category"];
-  echo "|";
-  echo $value["number-provisional"];
-  echo "|";
-  echo $value["number-final"];
-  echo "|";
-  echo unescape($value["title-in-english"]);
-  echo "|";
-  echo unescape($value["entered-by"]);
-  echo "|";
-  echo $telecaster ? unescape($value["name-telecaster"]) : unescape($value["name-producing-company"]);
-  echo "|";
-  echo $telecaster ? unescape($value["country-telecaster"]) : unescape($value["country-producing-company"]);
-  echo "|";
-  echo excelNumber($value["duration-in-minutes"]);
-  echo "|";
-  echo unescape($value["upload-link"]);
-  echo "|";
-  echo unescape($value["upload-quality"]);
-  echo "|";
-  echo unescape($value["script"]);
-  echo "|";
-  echo unescape($value["photos"]);
-  echo "|";
-  echo unescape($value["technik-check"]);
-  echo "|";
-  echo unescape($value["copy-bar"]);
-  echo "|";
-  echo unescape($value["telecaster-confirmation"]);
-  echo "|";
-  echo unescape($value["summary-reviewed"]);
-  echo "|";
-  echo unescape($value["comment"]);
-  echo "\n";
+$mysql->close();
+
+// Output the header row for the CSV
+echo "SubmissionId|Category|Nummerierung|Nummer final|Programme Title|EnteredBy|entering_name|entering_country|Length|Upload_link|Upload_Eingang_und_Qualitaet|Script|Photos|Technik_Check|PermissionforCopyBar|Telecaster_Confirmation|Summary_reviewed|Comment\n";
+
+// Process each entry for output
+foreach ($entries as $entry => $value) {
+    $skip = false;
+    foreach ($value as $key => $v) {
+        if ($category != "all" && $key == "category" && $v != str_replace("_", " ", $category)) {
+            $skip = true;
+        }
+        if ($key == "status" && $v[0] != "3") {
+            $skip = true;
+        }
+    }
+    if ($skip) continue;
+
+    $telecaster = $value["entered-by"] == "Telecaster / Digital Distributor";
+
+    // Output each field, ensuring proper CSV encoding
+    echo formatCSV([
+        $value["data_id"],
+        $value["category"],
+        $value["number-provisional"],
+        $value["number-final"],
+        $value["title-in-english"],
+        $value["entered-by"],
+        $telecaster ? $value["name-telecaster"] : $value["name-producing-company"],
+        $telecaster ? $value["country-telecaster"] : $value["country-producing-company"],
+        excelNumber($value["duration-in-minutes"]),
+        $value["upload-link"],
+        $value["upload-quality"],
+        $value["script"],
+        $value["photos"],
+        $value["technik-check"],
+        $value["copy-bar"],
+        $value["telecaster-confirmation"],
+        $value["summary-reviewed"],
+        $value["comment"]
+    ]);
+    echo "\n";
 }
+
+function formatCSV($fields) {
+    $delimiter = "|";
+    array_walk($fields, function (&$field) use ($delimiter) {
+        $field = '"' . str_replace('"', '""', $field) . '"';  // Enclose fields in quotes and escape quotes within fields
+    });
+    return implode($delimiter, $fields);
+}
+
+function excelNumber($number) {
+    return preg_replace("/[^0-9]/", "", $number);
+}
+
 ?>

@@ -6,6 +6,7 @@ function unescape($input) {
   $output =  html_entity_decode($output);
   // $output = htmlspecialchars_decode($output);
   $output = str_replace("&quot;", "\"", $output);
+  $output = str_replace("&#039;", "'", $output);
   $output = str_replace("&amp;", "&", $output);
   $output = str_replace("\'", "'", $output);
   return $output;

@@ -1,67 +1,80 @@
 <?php
-$id = $_GET["id"];
+$id = $_GET["id"];  // Ensure to validate and sanitize this parameter
 
-$delimeter = "¶";
+$delimiter = "¶";
 
-ini_set("memory_limit","1024M");
+ini_set("memory_limit", "1024M");
 
-// Create CSV for Form by ID
-
+// Set headers for downloading the file as CSV
 header("Content-type: text/csv; charset=utf-8");
-header("Content-Disposition: attachment; filename=entries_csv_".$id.".csv");
+header("Content-Disposition: attachment; filename=entries_csv_" . htmlspecialchars($id) . ".csv");
 header("Pragma: no-cache");
 header("Expires: 0");
 
-// 0. require config and connect to database
+// Require config and database connection
 require_once('config.php');
 require_once('functions.php');
 $mysql = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-$mysql->query("SET NAMES utf8"); 
+$mysql->set_charset("utf8");
+
 if ($mysql->connect_error) {
-  die("Connection failed: " . $mysql->connect_error);
-} 
+    die("Connection failed: " . $mysql->connect_error);
+}
 
-$sql = "SELECT data_id, name, value FROM Td6PNmU6_cf7_vdata_entry WHERE cf7_id=".$id." AND name NOT LIKE \"\\_%\" ORDER BY data_id ASC, name ASC";
-
-$result = $mysql->query($sql);
+// Prepare SQL statement to prevent SQL injection
+$stmt = $mysql->prepare("SELECT data_id, name, value FROM Td6PNmU6_cf7_vdata_entry WHERE cf7_id = ? AND name NOT LIKE '\\_%' ORDER BY data_id ASC, name ASC");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
 
 $entries = array();
 if ($result->num_rows > 0) {
-  while($row = $result->fetch_assoc()) {
-    // 1. Fill Named array with fields
-    $entries[$row["data_id"]]["data_id"] = $row["data_id"];
-    if($row["name"] != "g-recaptcha-response" && $row["name"] != "dsgvo") {
-      $entries[$row["data_id"]][$row["name"]] = trim(preg_replace("~[\r\n]~", " ",$row["value"]));
+    while ($row = $result->fetch_assoc()) {
+        $data_id = $row["data_id"];
+        $name = $row["name"];
+        $value = $row["value"];
+
+        // Filtering out unwanted fields
+        if ($name != "g-recaptcha-response" && $name != "dsgvo") {
+            $entries[$data_id]["data_id"] = $data_id;
+            $entries[$data_id][$name] = trim(preg_replace("~[\r\n]~", " ", $value));
+        }
     }
-  }
 } else {
-  echo "0 results";
+    echo "0 results";
+    $mysql->close();
+    die();
 }
-$mysql->close();
-/*echo "<pre>";
-print_r($entries);
-echo "</pre>";*/
 
+// Initialize output variable
+$output = "";
 
-// 2. create header-line from this
+// Generate headers from the keys of the first entry
 $headers = array_keys($entries[array_keys($entries)[0]]);
-for ($j=0; $j < count($headers); $j++) { 
-  $output .= $headers[$j].$delimeter;
-}
-$output = rtrim($output, $delimeter);
-$output .= "\n";
+$output .= implode($delimiter, $headers) . "\n";
 
-// 3. create lines with values
-foreach ($entries as $entry => $value) {
-  foreach ($value as $key => $v) {
-    $output .= unescape($v).$delimeter;
-  }
-  $output = rtrim($output, $delimeter);
-  $output .= "\n";
+// Generate rows for each entry
+foreach ($entries as $entry => $fields) {
+    $line = [];
+    foreach ($headers as $header) {
+        $line[] = array_key_exists($header, $fields) ? escape_csv($fields[$header]) : "";
+    }
+    $output .= implode($delimiter, $line) . "\n";
 }
-// 4. echo values
+
+// Output the results
 echo $output;
 
-// 5. die
+// Close the database connection
+$mysql->close();
 die();
+
+// Function to escape CSV specific characters
+function escape_csv($value) {
+    $value = str_replace('"', '""', $value);  // Escape double quotes
+    if (strpos($value, '"') !== false || strpos($value, $delimiter) !== false || strpos($value, "\n") !== false) {
+        $value = '"' . $value . '"';  // Enclose in double quotes if necessary
+    }
+    return $value;
+}
 ?>

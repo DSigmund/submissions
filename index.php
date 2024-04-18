@@ -44,7 +44,7 @@ require_once('config.php');
               <th><?php echo CAT_PERSONAL;?></th>
               <td>Personal Registration Form</td>
               <td><a href="submissions.php?id=<?php echo CAT_PERSONAL;?>" target="_blank">Submissions</a></td>
-              <td></td>
+              <td><a href="voters_by_org.php" target="_blank">Voters by Organisation</a></td>
               <td></td>
               <td></td>
             </tr>
