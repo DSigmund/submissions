@@ -19,9 +19,11 @@ if ($mysql->connect_error) {
 if (!defined('CAT_PERSONAL')) {
     die('The category constant CAT_PERSONAL is not defined.');
 }
+// Store the constant in a variable
+$catPersonal = CAT_PERSONAL;
 
 $stmt = $mysql->prepare("SELECT data_id, name, value FROM Td6PNmU6_cf7_vdata_entry WHERE cf7_id = ? AND name NOT LIKE '\\_%' ORDER BY data_id ASC, name ASC");
-$stmt->bind_param('i', CAT_PERSONAL);
+$stmt->bind_param('i', $catPersonal);
 $stmt->execute();
 $result = $stmt->get_result();
 
