@@ -23,8 +23,15 @@ if ($mysql->connect_error) {
 
 // Prepared statement to select entries
 $stmt = $mysql->prepare("SELECT data_id, name, value, cf7_id FROM Td6PNmU6_cf7_vdata_entry WHERE (cf7_id = ? OR cf7_id = ?) AND name NOT LIKE '\\_%' ORDER BY data_id ASC, name ASC");
-$stmt->bind_param("ii", $id, $secondId);
-$stmt->execute();
+if (!$stmt) {
+  die('Prepare failed: ' . $mysql->error);
+}
+if (!$stmt->bind_param("ii", $id, $secondId)) {
+  die('Bind param failed: ' . $stmt->error);
+}
+if (!$stmt->execute()) {
+  die('Execute failed: ' . $stmt->error);
+}
 $result = $stmt->get_result();
 
 $entries = [];
